@@ -1,0 +1,14 @@
+{
+  "name": "fb-library",
+  "version": "0.0.1",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "test": "jasmine --config=test/support/jasmine.json"
+  },
+  "devDependencies": {
+    "@functional-bitcoin/cli": "^0.0.1-beta.3",
+    "jasmine": "^3.3.1",
+    "vm2": "^3.6.10"
+  }
+}
