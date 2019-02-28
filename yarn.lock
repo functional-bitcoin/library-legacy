@@ -2,14 +2,14 @@
 # yarn lockfile v1
 
 
-"@functional-bitcoin/cli@^0.0.1-beta.3":
-  version "0.0.1-beta.3"
-  resolved "https://registry.yarnpkg.com/@functional-bitcoin/cli/-/cli-0.0.1-beta.3.tgz#e188c3c4c9c477d7e95b20ae68e3a109321cb923"
-  integrity sha512-G0f5Jvgv1ARdVtSY8H42093Zvf1/LgkNGLH2R19yOZbk7B0HLsB1PdI4lCOyer2QocwMp2E9gwCftsFt1lEKbQ==
+"@functional-bitcoin/cli@^0.0.1-beta.4":
+  version "0.0.1-beta.4"
+  resolved "https://registry.yarnpkg.com/@functional-bitcoin/cli/-/cli-0.0.1-beta.4.tgz#23ad7e5537d59cf91aaf306c6bc9f80c3dee475a"
+  integrity sha512-q/0UnHtbzUUt4cKPNb8OY8No9REFpYVWUC6/99oQjaGCbw8SDGhmG/ToKHfwZr3OM/mEp+lnI6OnDTiy6yC61w==
   dependencies:
     bsv "^0.23.0"
     chalk "^2.4.2"
-    datapay "^0.0.7"
+    datapay "^0.0.8"
     dotenv "^6.2.0"
     ejs "^2.6.1"
     qrcode-terminal "^0.12.0"
@@ -1036,10 +1036,10 @@ dashdash@^1.12.0:
   dependencies:
     assert-plus "^1.0.0"
 
-datapay@^0.0.7:
-  version "0.0.7"
-  resolved "https://registry.yarnpkg.com/datapay/-/datapay-0.0.7.tgz#f73a4274129de9d8c948c1ac06a46bd554f63ce8"
-  integrity sha512-tS8oSpIn0haOp0WvQFYYsPal5XqsMp0pq2QC30PJme1knzMCm9enS2sK0UqlCYLo7r2195a9XvyluVmSdHRLdw==
+datapay@^0.0.8:
+  version "0.0.8"
+  resolved "https://registry.yarnpkg.com/datapay/-/datapay-0.0.8.tgz#3d608feecbef86e014347650d2d93c83f14328af"
+  integrity sha512-eF6z+R7KF6wLBEYiLKFcj/dO55D35O7vuMhrKetAW2zy/Rf+RF/HRfYYF4AFBvJdUFufPpGA0SKthVlfC4vB3Q==
   dependencies:
     bitcore-explorers "^1.0.1"
     bsv "0.23.0"
