@@ -1,8 +1,16 @@
 const fs          = require('fs')
 const path        = require('path')
+const axios       = require('axios')
 const { NodeVM }  = require('vm2')
 
-vm = new NodeVM()
+//console.log(Promise)
+
+vm = new NodeVM({
+  sandbox: {
+    axios,
+    bitdb: { key: 'test' }
+  }
+})
 
 loadFunction = (name) => {
   const file = `${ name }.js`,
