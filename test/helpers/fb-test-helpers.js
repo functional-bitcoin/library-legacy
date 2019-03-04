@@ -1,5 +1,6 @@
 const fs          = require('fs')
 const path        = require('path')
+const crypto      = require('crypto')
 const axios       = require('axios')
 const { NodeVM }  = require('vm2')
 
@@ -8,6 +9,7 @@ const { NodeVM }  = require('vm2')
 vm = new NodeVM({
   sandbox: {
     axios,
+    crypto,
     bitdb: { key: 'test' }
   }
 })
