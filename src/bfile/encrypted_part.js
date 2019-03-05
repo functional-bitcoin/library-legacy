@@ -13,14 +13,20 @@ module.exports = ({ ctx }, secret, data) => {
       data
     },
     async decrypt(privateKey) {
-      const secretKey = crypto.privateDecrypt(privateKey, this.encrypted.secret)
+      const secretKey = privateKey.decrypt(this.encrypted.secret, 'RSA-OAEP', { md: forge.md.sha256.create() })
       const iv        = this.encrypted.data.slice(0, 12),
             encrypted = this.encrypted.data.slice(12, this.encrypted.data.length-16),
-            tag       = this.encrypted.data.slice(this.encrypted.data.length-16);
+            tag       = this.encrypted.data.slice(this.encrypted.data.length-16),
+            byteBuf   = new forge.util.ByteBuffer(encrypted);
 
-      const decipher  = crypto.createDecipheriv('aes-256-gcm', secretKey, iv)
-      decipher.setAuthTag(tag)
-      return decipher.update(encrypted) + decipher.final();
+      const decipher  = forge.cipher.createDecipher('AES-GCM', secretKey)
+      decipher.start({ 
+        iv: iv.toString('binary'),
+        tag: forge.util.createBuffer(tag)
+      })
+      decipher.update(forge.util.createBuffer(encrypted))
+      const res = decipher.finish()
+      return res ? decipher.output.data : res;
     }
   };
 }

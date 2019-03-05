@@ -1,15 +1,13 @@
 const fs          = require('fs')
 const path        = require('path')
-const crypto      = require('crypto')
+const forge       = require('node-forge')
 const axios       = require('axios')
 const { NodeVM }  = require('vm2')
-
-//console.log(Promise)
 
 vm = new NodeVM({
   sandbox: {
     axios,
-    crypto,
+    forge,
     bitdb: { key: 'test' }
   }
 })
