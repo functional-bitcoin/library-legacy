@@ -12,7 +12,7 @@ module.exports = ({ ctx }, secret, data) => {
       secret,
       data
     },
-    async decrypt(privateKey) {
+    decrypt(privateKey) {
       const secretKey = privateKey.decrypt(this.encrypted.secret, 'RSA-OAEP', { md: forge.md.sha256.create() })
       const iv        = this.encrypted.data.slice(0, 12),
             encrypted = this.encrypted.data.slice(12, this.encrypted.data.length-16),

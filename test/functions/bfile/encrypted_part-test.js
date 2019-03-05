@@ -34,11 +34,8 @@ describe('bfile/encrytped_part', () => {
       expect(typeof file.decrypt).toEqual('function')
     });
 
-    it('must return decrytped data', done => {
-      file.decrypt(keys.privateKey).then(data => {
-        expect(data).toEqual(rawText)
-        done()
-      })
+    it('must return decrytped data', () => {
+      expect( file.decrypt(keys.privateKey) ).toEqual(rawText)
     })
   })
 
