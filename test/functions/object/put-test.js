@@ -1,43 +1,54 @@
 describe('object/put', () => {
-  const fn    = loadFunction('object/put');
-  const ctx   = { foo: '1' };
-
   describe('with args list', () => {
-    const args = argsFromArray(['bar', 'qux', '3']);
-    const obj = fn({ ctx }, ...args)
+    const ctx = { foo: '1' },
+          args = ['bar', 'qux', '3'],
+          script = createTestScript('object/put', args, { ctx })
 
-    it('must return an extended object', () => {
-      expect(obj.foo).toEqual('1');
-      expect(obj.bar).toEqual({ qux: '3' });
+    it('must return an extended object', (done) => {
+      script.execute().then(obj => {
+        expect(obj.foo).toEqual('1');
+        expect(obj.bar).toEqual({ qux: '3' });
+        done()
+      })
     });
   })
 
   describe('with args string', () => {
-    const args = argsFromArray(['bar', 'value']);
-    const obj = fn({ ctx }, ...args)
+    const ctx = { foo: '1' },
+          args = ['bar', 'value'],
+          script = createTestScript('object/put', args, { ctx })
 
-    it('must return an extended object', () => {
-      expect(obj.foo).toEqual('1');
-      expect(obj.bar).toEqual('value');
+    it('must return an extended object', (done) => {
+      script.execute().then(obj => {
+        expect(obj.foo).toEqual('1');
+        expect(obj.bar).toEqual('value');
+        done()
+      })
     });
   })
 
   describe('without key', () => {
-    const args = argsFromArray(['', 'bar', '2']);
+    const ctx = { foo: '1' },
+          args = ['', 'bar', '2'],
+          script = createTestScript('object/put', args, { ctx })
 
-    it('must throw error', () => {
-      expect(_ => fn({ ctx }, ...args)).toThrow();
+    it('must throw error', (done) => {
+      script.execute()
+        .then(res => done(new Error('Promise should not be resolved')) )
+        .catch(err => done() )
     });
   })
 
   describe('without ctx', () => {
-    const ctx = undefined;
-    const args = argsFromArray(['bar', 'qux', '3']);
-     const obj = fn({ ctx }, ...args)
+    const args = ['bar', 'qux', '3'],
+          script = createTestScript('object/put', args)
 
-    it('must throw error', () => {
-      expect(obj.foo).toBe(undefined);
-      expect(obj.bar).toEqual({ qux: '3' });
+    it('must throw error', (done) => {
+      script.execute().then(obj => {
+        expect(obj.foo).toBe(undefined);
+        expect(obj.bar).toEqual({ qux: '3' });
+        done()
+      })
     });
   })
 })

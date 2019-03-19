@@ -1,0 +1,19 @@
+{
+  "c": [
+    {
+      "h": "d5ebff8a5c1c71d60c2971ec1e13096010ecb02ea653b1343ccc9680e382cabe",
+      "a": "1JihAcoFS4MCUcwq6AxQHHGy4tGABt9HCu",
+      "name": "object/extend",
+      "fn": "/**\n * @function    object/extend\n * @description Extends the context object with a list of arguments paired into key-value pairs.\n * @param       {...string} args  Any number of arguments\n * @return      {object}\n */\nmodule.exports = ({ ctx }, ...args) => {\n  return args.reduce((obj, arg, i) => {\n    if (i % 2 === 0) {\n      const val = args[i + 1];\n      obj[ arg.toString() ] = val ? val.toString() : undefined;\n    };\n    return obj;\n  }, { ...ctx })\n}",
+      "v": null
+    },
+    {
+      "h": "c7e30124267ad8b1cc0f3fe8da6cd8513a9a82f32d11c6f25b40e2b48e39b7f0",
+      "a": "1JihAcoFS4MCUcwq6AxQHHGy4tGABt9HCu",
+      "name": "object/put",
+      "fn": "/**\n * @function    object/put\n * @description Puts the given key in the context object, with the given args value.\n * @param       {string}    key   Object key\n * @param       {...string} args  Any number of arguments\n * @return      {object}\n */\nmodule.exports = ({ ctx }, key, ...args) => {\n  if ( !key || !key.length ) {\n    throw new Error('Invalid arguments');\n  }\n\n  let val;\n  ctx = { ...ctx };\n\n  if (args.length === 1) {\n    val = args[0].toString();\n  } else {\n    val = args.reduce((obj, arg, i) => {\n      if (i % 2 === 0) {\n        const v = args[i + 1];\n        obj[ arg.toString() ] = v ? v.toString() : undefined;\n      };\n      return obj;\n    }, {})\n  }\n\n  ctx[ key.toString() ] = val;\n  return ctx;\n}",
+      "v": null
+    }
+  ],
+  "u": []
+}

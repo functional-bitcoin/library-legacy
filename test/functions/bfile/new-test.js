@@ -1,70 +1,93 @@
 describe('bfile/new', () => {
-  const fn    = loadFunction('bfile/new');
-  const ctx   = undefined;
-
   describe('with full args', () => {
-    const args = argsFromArray(['hello world', 'text/plain', 'UTF-8', 'hello.txt']);
-    const file = fn({ ctx }, ...args)
+    const args = ['hello world', 'text/plain', 'UTF-8', 'hello.txt'],
+          script = createTestScript('bfile/new', args);
 
-    it('must return a file object', () => {
-      
-      expect(file.data.toString()).toEqual('hello world');
-      expect(file.type).toEqual('text/plain');
-      expect(file.encoding).toEqual('UTF-8');
-      expect(file.name).toEqual('hello.txt');
+    it('must return a file object', (done) => {
+      script.execute().then(file => {
+        expect(file.data.toString()).toEqual('hello world');
+        expect(file.type).toEqual('text/plain');
+        expect(file.encoding).toEqual('UTF-8');
+        expect(file.name).toEqual('hello.txt');
+        done()
+      })
     });
   })
 
   describe('with minimal args', () => {
-    const args = argsFromArray(['hello world', 'text/plain']);
-    const file = fn({ ctx }, ...args)
+    const args = ['hello world', 'text/plain'],
+          script = createTestScript('bfile/new', args)
 
-    it('must return a file object', () => {
-      expect(file.data.toString()).toEqual('hello world');
-      expect(file.type).toEqual('text/plain');
+    it('must return a file object', (done) => {
+      script.execute().then(file => {
+        expect(file.data.toString()).toEqual('hello world');
+        expect(file.type).toEqual('text/plain');
+        done()
+      })
     });
 
-    it('must default to UTF-8', () => {
-      expect(file.encoding).toEqual('UTF-8');
+    it('must default to UTF-8', (done) => {
+      script.execute().then(file => {
+        expect(file.encoding).toEqual('UTF-8');
+        done()
+      })
     });
 
-    it('must have no filename', () => {
-      expect(file.name).toBe(undefined);
+    it('must have no filename', (done) => {
+      script.execute().then(file => {
+        expect(file.name).toBe(undefined);
+        done()
+      })
     });
   })
 
   describe('with minimal binary args', () => {
-    const args = argsFromArray(['IMAGEDATA', 'image/png']);
-    const file = fn({ ctx }, ...args)
+    const args = ['IMAGEDATA', 'image/png'],
+          script = createTestScript('bfile/new', args)
 
-    it('wont default to UTF-8', () => {
-      expect(file.encoding).toBe(undefined);
+    it('wont default to UTF-8', (done) => {
+      script.execute().then(file => {
+        expect(file.encoding).toBe(undefined);
+        done()
+      })
     });
   })
 
   describe('with skipped args', () => {
-    const args = argsFromArray(['hello world', 'text/plain', '', 'hello.txt']);
-    const file = fn({ ctx }, ...args)
+    const args = ['hello world', 'text/plain', '', 'hello.txt'],
+          script = createTestScript('bfile/new', args)
 
-    it('must default to UTF-8', () => {
-      expect(file.encoding).toEqual('UTF-8');
+    it('must default to UTF-8', (done) => {
+      script.execute().then(file => {
+        expect(file.encoding).toEqual('UTF-8');
+        done()
+      })
     });
 
-    it('must have filename', () => {
-      expect(file.name).toEqual('hello.txt');
+    it('must have filename', (done) => {
+      script.execute().then(file => {
+        expect(file.name).toEqual('hello.txt');
+        done()
+      })
     });
   })
 
   describe('with skipped binary args', () => {
-    const args = argsFromArray(['IMAGEDATA', 'image/png', '', 'hello.png']);
-    const file = fn({ ctx }, ...args)
+    const args = ['IMAGEDATA', 'image/png', '', 'hello.png'],
+          script = createTestScript('bfile/new', args)
 
-    it('must default to UTF-8', () => {
-      expect(file.encoding).toBe(undefined);
+    it('must default to UTF-8', (done) => {
+      script.execute().then(file => {
+        expect(file.encoding).toBe(undefined);
+        done()
+      })
     });
 
-    it('must have filename', () => {
-      expect(file.name).toEqual('hello.png');
+    it('must have filename', (done) => {
+      script.execute().then(file => {
+        expect(file.name).toEqual('hello.png');
+        done()
+      })
     });
   })
 });

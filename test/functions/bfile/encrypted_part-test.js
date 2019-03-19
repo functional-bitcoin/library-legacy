@@ -2,7 +2,6 @@ const util    = require('util')
 const forge   = require('node-forge')
 
 describe('bfile/encrytped_part', () => {
-  const fn      = loadFunction('bfile/encrypted_part');
   const ctx     = { data: 'Unencrypted data' };
   const rawText = 'Hello world!';
 
@@ -23,19 +22,25 @@ describe('bfile/encrytped_part', () => {
 
     this.encData    = Buffer.concat([iv, encrypted.data, tag.data].map(d => Buffer.from(d, 'binary')));
 
-    const args = argsFromArray([Buffer.from(this.encSecret, 'binary'), Buffer.from(this.encData, 'binary')])
-    const file = fn({ ctx }, ...args)
+    const args = [Buffer.from(this.encSecret, 'binary'), Buffer.from(this.encData, 'binary')],
+          script = createTestScript('bfile/encrypted_part', args, { ctx });
 
-    it('must return a file object', () => {
-      expect(file.data).toEqual(ctx.data)
-      expect(typeof file.encrypted).toEqual('object')
-      expect( file.encrypted.secret ).toEqual( Buffer.from(this.encSecret, 'binary') )
-      expect( file.encrypted.data ).toEqual( this.encData )
-      expect(typeof file.decrypt).toEqual('function')
+    it('must return a file object', (done) => {
+      script.execute().then(file => {
+        expect(file.data).toEqual(ctx.data)
+        expect(typeof file.encrypted).toEqual('object')
+        expect( file.encrypted.secret ).toEqual( Buffer.from(this.encSecret, 'binary') )
+        expect( file.encrypted.data ).toEqual( this.encData )
+        expect(typeof file.decrypt).toEqual('function')
+        done()
+      })
     });
 
-    it('must return decrytped data', () => {
-      expect( file.decrypt(keys.privateKey) ).toEqual(rawText)
+    it('must return decrytped data', (done) => {
+      script.execute().then(file => {
+        expect( file.decrypt(keys.privateKey) ).toEqual(rawText)
+        done()
+      })
     })
   })
 
