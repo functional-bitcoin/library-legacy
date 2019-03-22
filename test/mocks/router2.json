@@ -1,0 +1,12 @@
+{
+  "c": [
+    {
+      "h": "5f94a325c835ac0fcc89370061c6a63b305b2c6cf3d2fe002d264e98dbd44ac2",
+      "a": "1JihAcoFS4MCUcwq6AxQHHGy4tGABt9HCu",
+      "name": "bfile/new",
+      "fn": "/**\n * @function    bfile/new\n * @description Initiates a new object following the B:// protocol specification.\n * @param       {buffer}  data      File blob data\n * @param       {string}  type      File media-type\n * @param       {string}  encoding  Optional file encoding\n * @param       {string}  name      Optional file name\n * @return      {object}\n */\nmodule.exports = ({ ctx }, data, type, encoding, name) => {\n  if ( !data ) {\n    throw new Error('Invalid arguments')\n  }\n  const file = {\n    data,\n    type:     type && type.length         ? type.toString()     : 'text/plain',\n    encoding: encoding && encoding.length ? encoding.toString() : undefined,\n    name:     name && name.length         ? name.toString()    : undefined\n  }\n  if ( !file.encoding && /^text\\//.test(file.type) ) {\n    file.encoding = 'UTF-8';\n  }\n  return file;\n}",
+      "v": null
+    }
+  ],
+  "u": []
+}

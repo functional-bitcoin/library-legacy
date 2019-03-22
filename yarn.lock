@@ -2,10 +2,10 @@
 # yarn lockfile v1
 
 
-"@functional-bitcoin/agent@^0.0.1-beta.14":
-  version "0.0.1-beta.14"
-  resolved "https://registry.yarnpkg.com/@functional-bitcoin/agent/-/agent-0.0.1-beta.14.tgz#ca5efd0e3e69affca1d00f20a1cf711ef2099c0d"
-  integrity sha512-kXnMnQx89MXK/n7u0jH+rzs0W7MqsTP5JJPg08fygaxj/6SWPud5RqgMSIFmHFpesIQA16hhLRy0/CaB6+7yKQ==
+"@functional-bitcoin/agent@^0.0.1-beta.15":
+  version "0.0.1-beta.15"
+  resolved "https://registry.yarnpkg.com/@functional-bitcoin/agent/-/agent-0.0.1-beta.15.tgz#76de9e3580ccb7b9c94669cf31f572ee75c56b9c"
+  integrity sha512-DGfjwhbfBGKkTuVmgBJj8pHbvIkfgaJteXLFKxPhXQQDwHvWTybg1209fP0eJdGXXEBrP2OUZ+f+ZpzGKa3rsg==
   dependencies:
     axios "^0.18.0"
     co "^4.6.0"

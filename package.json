@@ -7,7 +7,7 @@
     "test": "jasmine --config=test/support/jasmine.json"
   },
   "devDependencies": {
-    "@functional-bitcoin/agent": "^0.0.1-beta.14",
+    "@functional-bitcoin/agent": "^0.0.1-beta.15",
     "@functional-bitcoin/cli": "^0.0.1-beta.4",
     "axios": "^0.18.0",
     "jasmine": "^3.3.1",
