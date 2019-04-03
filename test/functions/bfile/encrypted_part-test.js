@@ -3,7 +3,7 @@ const forge   = require('node-forge')
 
 describe('bfile/encrytped_part', () => {
   const ctx     = { data: 'Unencrypted data' };
-  const rawText = 'Hello world!';
+  const rawText = 'Hello 😀 world!';
 
   const keys = forge.pki.rsa.generateKeyPair({bits: 2048, e: 0x10001})
 
@@ -14,7 +14,7 @@ describe('bfile/encrytped_part', () => {
           cipher    = forge.cipher.createCipher('AES-GCM', this.secretKey);
 
     cipher.start({ iv })
-    cipher.update( forge.util.createBuffer(rawText) )
+    cipher.update( forge.util.createBuffer(forge.util.encodeUtf8(rawText)) )
     cipher.finish()
 
     const encrypted = cipher.output;

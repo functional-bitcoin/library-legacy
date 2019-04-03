@@ -26,7 +26,7 @@ module.exports = ({ ctx }, secret, data) => {
       })
       decipher.update(forge.util.createBuffer(encrypted))
       const res = decipher.finish()
-      return res ? decipher.output.data : res;
+      return res ? forge.util.decodeUtf8(decipher.output.data) : res;
     }
   };
 }
