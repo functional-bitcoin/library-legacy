@@ -1,26 +1,30 @@
 const nock = require('nock')
 
+const routes = {
+  '/about': {
+    b: 'b930def6e95538b63e4bac915652ccd46d00be94929c88af4ec9993266a1420d',
+    c: '8a62a3e6b69811a45b8416ddc0d21e886441bbb582262b9b01ff2c7dd2b55cb1'
+  },
+  '/foo/bar': {
+    b: 'aaaaaaaa',
+    c: '11111111'
+  },
+  '/baz/index.html': {
+    b: 'bbbbbbbb',
+    c: '22222222'
+  },
+  '/qux/index.htm': {
+    b: 'cccccccc',
+    c: '33333333'
+  }
+}
+
 describe('agent/router', () => {
 
   describe('with valid context', () => {
     const ctx = {
       data: JSON.stringify({
-        '/about': {
-          b: 'b930def6e95538b63e4bac915652ccd46d00be94929c88af4ec9993266a1420d',
-          c: '8a62a3e6b69811a45b8416ddc0d21e886441bbb582262b9b01ff2c7dd2b55cb1'
-        },
-        '/foo/bar': {
-          b: 'aaaaaaaa',
-          c: '11111111'
-        },
-        '/baz/index.html': {
-          b: 'bbbbbbbb',
-          c: '22222222'
-        },
-        '/qux/index.htm': {
-          b: 'cccccccc',
-          c: '33333333'
-        }
+        routes
       })
     }
 
@@ -55,7 +59,7 @@ describe('agent/router', () => {
         }
         done(new Error('Should throw not found error'))
       })
-    })
+    })    
 
     it('must call a route and return a new script', (done) => {
       const script = createTestScript('agent/router', [], { ctx })
@@ -78,6 +82,32 @@ describe('agent/router', () => {
           expect(script.result.name).toEqual('index.html')
           done()
         })
+      })
+    })
+  })
+
+  describe('with spa mode', () => {
+    const ctx = {
+      data: JSON.stringify({
+        routes: {
+          ...routes,
+          '/index.html': {
+            b: 'iiiiiiii',
+            c: '00000000'
+          }
+        },
+        options: {
+          spa: true
+        }
+      })
+    }
+
+    it('must fallback to root path in SPA mode', (done) => {
+      const script = createTestScript('agent/router', [], { ctx })
+
+      script.execute().then(result => {
+        expect(result.match('/not-here').c).toEqual('00000000');
+        done()
       })
     })
   })

@@ -5,24 +5,34 @@
  * @return      [description]
  */
 module.exports = ({ ctx, $agent }) => {
-  let routes;
+  let router;
   try {
-    routes = JSON.parse(ctx.data.toString());
+    router = JSON.parse(ctx.data.toString());
   } catch(e) {
     throw new Error('Invalid context')
   }
 
-  return {
-    version: 1,
-    routes,
+  const defaults = {
+    version: '1.1',
+    options: {},
+    routes: {}
+  }
 
+  const methods = {
     match(path) {
       const joinPath = (...parts) => [path, ...parts].join('/').replace(/\/\//, '/');
       const route = this.routes[path] ||
         this.routes[joinPath('index.html')] ||
         this.routes[joinPath('index.htm')];
 
-      if (!route) throw new Error('Not found');
+      if (!route) {
+        if ( this.options.spa && path !== '/' && !/\.(?!html?)\w+$/i.test(path) ) {
+          return this.match('/');
+        }
+
+        throw new Error('Not found');
+      }
+
       return route;
     },
 
@@ -31,4 +41,6 @@ module.exports = ({ ctx, $agent }) => {
       return $agent.runScript(route.b)
     }
   }
+
+  return Object.assign(defaults, router, methods);
 }

@@ -1,4 +1,3 @@
-const util    = require('util')
 const forge   = require('node-forge')
 
 describe('bfile/encrytped_part', () => {
