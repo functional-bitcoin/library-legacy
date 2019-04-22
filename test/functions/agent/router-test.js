@@ -89,15 +89,9 @@ describe('agent/router', () => {
   describe('with spa mode', () => {
     const ctx = {
       data: JSON.stringify({
-        routes: {
-          ...routes,
-          '/index.html': {
-            b: 'iiiiiiii',
-            c: '00000000'
-          }
-        },
+        routes,
         options: {
-          spa: true
+          spa: '/baz/index.html'
         }
       })
     }
@@ -106,7 +100,7 @@ describe('agent/router', () => {
       const script = createTestScript('agent/router', [], { ctx })
 
       script.execute().then(result => {
-        expect(result.match('/not-here').c).toEqual('00000000');
+        expect(result.match('/not-here').c).toEqual('22222222');
         done()
       })
     })

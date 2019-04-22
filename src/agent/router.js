@@ -26,8 +26,8 @@ module.exports = ({ ctx, $agent }) => {
         this.routes[joinPath('index.htm')];
 
       if (!route) {
-        if ( this.options.spa && path !== '/' && !/\.(?!html?)\w+$/i.test(path) ) {
-          return this.match('/');
+        if ( this.options.spa && path !== this.options.spa && !/\.(?!html?)\w+$/i.test(path) ) {
+          return this.match(this.options.spa);
         }
 
         throw new Error('Not found');
