@@ -13,9 +13,9 @@ module.exports = ({ ctx }, data, type, encoding, name) => {
   }
   const file = {
     data,
-    type:     type && type.length         ? type.toString()     : 'text/plain',
+    type:     type && type.length         ? type.toString()     : undefined,
     encoding: encoding && encoding.length ? encoding.toString() : undefined,
-    name:     name && name.length         ? name.toString()    : undefined
+    name:     name && name.length         ? name.toString()     : undefined
   }
   if ( !file.encoding && /^text\//.test(file.type) ) {
     file.encoding = 'UTF-8';
