@@ -11,11 +11,14 @@ module.exports = ({ ctx }, action, ...args) => {
 
   let payload;
 
-  function parseFile(hash, price, address) {
+  function parseFile(hash, price, currency, address, survey) {
+    survey = survey ? [...survey] : [survey];
     return {
-      hash:     hash.toString(),
-      price:    price.readDoubleBE(),
-      address:  address.toString()
+      hash:       hash.toString(),
+      price:      price.readDoubleBE(),
+      currency:   currency.toString(),
+      address:    address.toString(),
+      permitted:  survey.includes(1)
     }
   }
 
